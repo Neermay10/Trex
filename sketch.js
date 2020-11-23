@@ -67,7 +67,7 @@ function setup() {
   
   console.log("Hello" + 5);
   
-  trex.setCollider("circle",0,0,43);
+  trex.setCollider("circle",0,0,38);
   //trex.debug = true
   
   score = 0;
