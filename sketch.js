@@ -78,7 +78,12 @@ function setup() {
 
 function draw() {
   
-  background("white");
+  if(score%700 === 0 && score > 0){
+      background("black")
+    }
+  if(score%1200 === 0){
+      background("white")
+    }
   //displaying score
   text("Score: "+ score, 500,50);
   
@@ -87,12 +92,7 @@ function draw() {
   
   // console.log("this is ",gameState)
   
-  if(score%700 === 0 && score > 0){
-      background("black")
-    }
-  if(score%1200 === 0 && score > 0){
-      background("white")
-    }
+  
   
   if(gameState === PLAY){
     gameOver.visible = false
@@ -130,9 +130,9 @@ function draw() {
       gameState = END;
       dieSound.play();
     }
-    if(frameCount%200 === 0){
-      ground.velocityX = ground.velocityX -2;
-      obstaclesGroup.velocityX = obstaclesGroup.velocityX -2;
+    if(frameCount%100 === 0){
+      ground.velocityX = ground.velocityX -3;
+      obstaclesGroup.velocityX = obstaclesGroup.velocityX -3;
     }
   }
    else if (gameState === END) {
