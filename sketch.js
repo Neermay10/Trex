@@ -96,7 +96,7 @@ function draw() {
     //scoring
     score = score + Math.round(getFrameRate()/60);
     
-    if(score%500 === 0 && score > 0){
+    if(score%100 === 0 && score > 0){
       checkPointSound.play();
     }
     
@@ -124,7 +124,7 @@ function draw() {
       gameState = END;
       dieSound.play();
     }
-    if(frameCount%500 === 0){
+    if(frameCount%200 === 0){
       ground.velocityX = ground.velocityX -2;
       obstaclesGroup.velocityX = obstaclesGroup.velocityX -2;
     }
