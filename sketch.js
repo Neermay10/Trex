@@ -8,10 +8,12 @@ var ground, invisibleGround, groundImage;
 var cloudsGroup, cloudImage;
 var obstaclesGroup, obstacle1, obstacle2, obstacle3, obstacle4, obstacle5, obstacle6;
 
-var score;
+var score = 0;
 
-var gameOverImg,restartImg
-var jumpSound , checkPointSound, dieSound
+var gameOverImg,restartImg;
+var jumpSound , checkPointSound, dieSound;
+
+localStorage["HighestScore"] = 0;
 
 
 function preload(){
@@ -65,12 +67,12 @@ function setup() {
   obstaclesGroup = createGroup();
   cloudsGroup = createGroup();
   
-  console.log("Hello" + 5);
+  //console.log("Hello" + 5);
   
-  trex.setCollider("circle",0,0,38);
+  trex.setCollider("circle",0,0,43);
   //trex.debug = true
   
-  score = 0;
+  
   
 }
 
@@ -79,6 +81,9 @@ function draw() {
   background("white");
   //displaying score
   text("Score: "+ score, 500,50);
+  
+  if(localStorage["HighestScore"]<score){
+     localStorage["HighestScore"] = score }
   
   // console.log("this is ",gameState)
   
@@ -151,19 +156,12 @@ function draw() {
   //stop trex from falling down
   trex.collide(invisibleGround);
   
-  
+  text("HI Score " + localStorage["HighestScore"],420,50)
   
   drawSprites();
 }
 
 
-function reset(){
-  gameState = PLAY;
-  score = 0;
-  obstaclesGroup.destroyEach();
-  cloudsGroup.destroyEach();
-  trex.changeAnimation("running", trex_running);
-}
 
 function spawnObstacles(){
  if (frameCount % 80 === 0){
@@ -210,7 +208,7 @@ function spawnClouds() {
     cloud.velocityX = -3;
     
      //assign lifetime to the variable
-    cloud.lifetime = 200;
+    cloud.lifetime = 210;
     
     //adjust the depth
     cloud.depth = trex.depth;
@@ -221,3 +219,13 @@ function spawnClouds() {
     }
 }
 
+function reset(){
+  gameState = PLAY;
+  
+  obstaclesGroup.destroyEach();
+  cloudsGroup.destroyEach();
+  trex.changeAnimation("running", trex_running);
+  
+  //console.log(localStorage[ `HighestScore`]);
+  score = 0;
+}
