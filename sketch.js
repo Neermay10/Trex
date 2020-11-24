@@ -88,7 +88,7 @@ function draw() {
   // console.log("this is ",gameState)
   
   if(score%700 === 0 && score > 0){
-      background("white")
+      background("black")
     }
   if(score%1200 === 0 && score > 0){
       background("white")
