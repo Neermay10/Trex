@@ -87,6 +87,12 @@ function draw() {
   
   // console.log("this is ",gameState)
   
+  if(score%700 === 0 && score > 0){
+      background("white")
+    }
+  if(score%1200 === 0 && score > 0){
+      background("white")
+    }
   
   if(gameState === PLAY){
     gameOver.visible = false
