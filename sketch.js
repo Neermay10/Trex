@@ -40,27 +40,27 @@ function preload(){
 }
 
 function setup() {
-  createCanvas(600, 200);
+  createCanvas(windowWidth,windowHeight);
   
-  trex = createSprite(50,180,20,50);
+  trex = createSprite(50,height-70,20,50);
   trex.addAnimation("running", trex_running);
   trex.addAnimation("collided" ,trex_collided);
   trex.scale = 0.5;
   
-  ground = createSprite(200,180,400,20);
+  ground = createSprite(width/2,height-20,width,2);
   ground.addImage("ground",groundImage);
   ground.x = ground.width /2;
   
-   gameOver = createSprite(300,100);
+   gameOver = createSprite(width/2,height/2- 50);
   gameOver.addImage(gameOverImg);
   
-  restart = createSprite(300,140);
+  restart = createSprite(width/2,height/2);
   restart.addImage(restartImg);
   
   gameOver.scale = 0.5;
   restart.scale = 0.5;
   
-  invisibleGround = createSprite(200,190,400,10);
+  invisibleGround = createSprite(width/2,height-15,width,2);
   invisibleGround.visible = false;
   
   //create Obstacle and Cloud Groups
@@ -70,6 +70,7 @@ function setup() {
   //console.log("Hello" + 5);
   
   trex.setCollider("circle",0,0,43);
+  //trex.setCollider("rectangle",0,0,200,90);
   //trex.debug = true
   
   
@@ -77,13 +78,8 @@ function setup() {
 }
 
 function draw() {
-  
-  if(score%700 === 0 && score > 0){
-      background("black")
-    }
-  if(score%1200 === 0){
-      background("white")
-    }
+background("white");
+
   //displaying score
   text("Score: "+ score, 500,50);
   
@@ -98,9 +94,12 @@ function draw() {
     gameOver.visible = false
     restart.visible = false
     //move the ground
-    ground.velocityX = -6;
+    ground.velocityX = -(6 +  1*score/75);
     //scoring
-    score = score + Math.round(getFrameRate()/60);
+    //score = score + Math.round(getFrameRate()/60);
+    if(frameCount%5 === 0){
+     score = score + 1;
+    }
     
     if(score%100 === 0 && score > 0){
       checkPointSound.play();
@@ -111,7 +110,7 @@ function draw() {
     }
     
     //jump when the space key is pressed
-    if(keyDown("space")&& trex.y >= 160 ) {
+    if(touches.length > 0 || keyDown("space")&& trex.y >= height-40 ) {
       trex.velocityY = -13;
       jumpSound.play();
     }
@@ -130,10 +129,7 @@ function draw() {
       gameState = END;
       dieSound.play();
     }
-    if(frameCount%100 === 0){
-      ground.velocityX = ground.velocityX -3;
-      obstaclesGroup.velocityX = obstaclesGroup.velocityX -3;
-    }
+    
   }
    else if (gameState === END) {
      //console.log("hey")
@@ -153,7 +149,7 @@ function draw() {
      obstaclesGroup.setVelocityXEach(0);
      cloudsGroup.setVelocityXEach(0);
      
-     if(mousePressedOver(restart) || keyDown("space")) {
+     if(mousePressedOver(restart) || keyDown("space") || touches.length>0) {
       reset();
     }
    }
@@ -171,9 +167,8 @@ function draw() {
 
 function spawnObstacles(){
  if (frameCount % 80 === 0){
-   var obstacle = createSprite(610,165,10,40);
-   obstacle.velocityX = -6;
-   //console.log(trex.depth);
+   var obstacle = createSprite(600,height-35,20,30);
+   obstacle.velocityX =-(6 +  1*score/75);
     //generate random obstacles
     var rand = Math.round(random(1,6));
     switch(rand) {
@@ -197,7 +192,7 @@ function spawnObstacles(){
    
     //assign scale and lifetime to the obstacle           
     obstacle.scale = 0.5;
-    obstacle.lifetime = 300;
+    obstacle.lifetime = width/obstacle.velocityX;
    
    //add each obstacle to the group
     obstaclesGroup.add(obstacle);
@@ -207,14 +202,14 @@ function spawnObstacles(){
 function spawnClouds() {
   //write code here to spawn the clouds
   if (frameCount % 80 === 0) {
-     cloud = createSprite(600,100,40,10);
-    cloud.y = Math.round(random(10,60));
+     cloud = createSprite(width+20,height-300,40,10);
+    cloud.y = Math.round(random(height-100,height-220));
     cloud.addImage(cloudImage);
     cloud.scale = 0.5;
     cloud.velocityX = -3;
     
      //assign lifetime to the variable
-    cloud.lifetime = 210;
+    cloud.lifetime = width/cloud.velocityX;
     
     //adjust the depth
     cloud.depth = trex.depth;
