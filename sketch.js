@@ -50,7 +50,7 @@ function setup() {
   
   ground = createSprite(width/2,height-20,width,2);
   ground.addImage("ground",groundImage);
-  ground.x = ground.width /2;
+  ground.x = ground.width /1;
   ground.scale=4;
   
    gameOver = createSprite(width/2,height/2- 50);
