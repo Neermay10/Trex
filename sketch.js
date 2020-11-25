@@ -51,6 +51,7 @@ function setup() {
   ground = createSprite(width/2,height-20,width,2);
   ground.addImage("ground",groundImage);
   ground.x = ground.width /2;
+  ground.scale=2;
   
    gameOver = createSprite(width/2,height/2- 50);
   gameOver.addImage(gameOverImg);
@@ -173,7 +174,7 @@ background("white");
 function spawnObstacles(){
  if (frameCount % 80 === 0){
    var obstacle = createSprite(width,height-35,20,30);
-   obstacle.velocityX = -6;
+   obstacle.velocityX = -(6 +  1*score/75);
     //generate random obstacles
     var rand = Math.round(random(1,6));
     switch(rand) {
