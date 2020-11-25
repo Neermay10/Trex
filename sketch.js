@@ -96,6 +96,8 @@ background("white");
     restart.visible = false
     //move the ground
     ground.velocityX = -(6 +  1*score/75);
+    
+    obstaclesGroup.setVeloctiyXEach = -(6 +  1*score/75);
     //scoring
     //score = score + Math.round(getFrameRate()/60);
     if(frameCount%5 === 0){
@@ -171,7 +173,7 @@ background("white");
 function spawnObstacles(){
  if (frameCount % 80 === 0){
    var obstacle = createSprite(width,height-35,20,30);
-   obstacle.velocityX =-(6 +  1*score/75);
+   obstacle.velocityX = -6;
     //generate random obstacles
     var rand = Math.round(random(1,6));
     switch(rand) {
