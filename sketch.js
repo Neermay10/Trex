@@ -114,6 +114,7 @@ background("white");
     if(touches.length > 0 || keyDown("space")&& trex.y >= height-40 ) {
       trex.velocityY = -13;
       jumpSound.play();
+      touches=[];
     }
     
     //add gravity
@@ -152,6 +153,7 @@ background("white");
      
      if(mousePressedOver(restart) || keyDown("space") || touches.length>0) {
       reset();
+      touches=[];
     }
    }
    obstaclesGroup.setVeloctiyXEach = ground.velocityX
