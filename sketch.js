@@ -8,7 +8,7 @@ var ground, invisibleGround, groundImage;
 var cloudsGroup, cloudImage;
 var obstaclesGroup, obstacle1, obstacle2, obstacle3, obstacle4, obstacle5, obstacle6;
 
-var score = 0;
+var score = "00000";
 
 var gameOverImg,restartImg;
 var jumpSound , checkPointSound, dieSound;
@@ -82,7 +82,7 @@ function draw() {
 background("white");
 
   //displaying score
-  text("Score: "+ score, 500,50);
+  text("Score: "+ score,width-100,height-50);
   
   if(localStorage["HighestScore"]<score){
      localStorage["HighestScore"] = score }
@@ -159,7 +159,7 @@ background("white");
   //stop trex from falling down
   trex.collide(invisibleGround);
   
-  text("HI Score " + localStorage["HighestScore"],420,50)
+  text("HI Score " + localStorage["HighestScore"],width-180,height-50)
   
   drawSprites();
 }
