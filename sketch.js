@@ -8,7 +8,7 @@ var ground, invisibleGround, groundImage;
 var cloudsGroup, cloudImage;
 var obstaclesGroup, obstacle1, obstacle2, obstacle3, obstacle4, obstacle5, obstacle6;
 
-var score = "00000";
+var score = 0;
 
 var gameOverImg,restartImg;
 var jumpSound , checkPointSound, dieSound;
@@ -82,7 +82,7 @@ function draw() {
 background("white");
 
   //displaying score
-  text("Score: "+ score,width-100,height-50);
+  text("Score "+ score,width-100,50);
   
   if(localStorage["HighestScore"]<score){
      localStorage["HighestScore"] = score }
@@ -159,7 +159,7 @@ background("white");
   //stop trex from falling down
   trex.collide(invisibleGround);
   
-  text("HI Score " + localStorage["HighestScore"],width-180,height-50)
+  text("HI Score " + localStorage["HighestScore"],width-180,50)
   
   drawSprites();
 }
@@ -168,7 +168,7 @@ background("white");
 
 function spawnObstacles(){
  if (frameCount % 80 === 0){
-   var obstacle = createSprite(600,height-35,20,30);
+   var obstacle = createSprite(width,height-35,20,30);
    obstacle.velocityX =-(6 +  1*score/75);
     //generate random obstacles
     var rand = Math.round(random(1,6));
